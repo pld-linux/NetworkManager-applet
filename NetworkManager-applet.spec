@@ -25,6 +25,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
+Requires(post,postun):	hicolor-icon-theme
 Requires:	NetworkManager >= 0.6.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,6 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %gconf_schema_install
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
