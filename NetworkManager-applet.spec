@@ -1,4 +1,3 @@
-# TODO: missing BRs (ac/am/??? - don't hide them behind autoreconf call)
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
@@ -10,6 +9,8 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.6/netwo
 # Source0-md5:	1c94a41e2399d261985a75f0cd3b895b
 BuildRequires:	GConf2-devel >= 2.0
 BuildRequires:	NetworkManager-devel >= 0.6.5
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.60
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-keyring-devel
@@ -21,6 +22,7 @@ BuildRequires:	libglade2-devel >= 1:2.0
 BuildRequires:	libiw-devel >= 1:28
 BuildRequires:	libnl-devel >= 1.0
 BuildRequires:	libnotify-devel >= 0.3.0
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post):	/sbin/ldconfig
@@ -39,7 +41,11 @@ Aplet zarządcy sieci dla GNOME.
 %setup -q -n nm-applet-%{version}
 
 %build
-autoreconf
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure
 %{__make}
 
