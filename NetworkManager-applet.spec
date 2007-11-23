@@ -95,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
 %attr(755,root,root) %{_bindir}/nm-vpn-properties
-%attr(755,root,root) %{_datadir}/nm-applet
+%{_datadir}/nm-applet
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus-1/system.d/nm-applet.conf
