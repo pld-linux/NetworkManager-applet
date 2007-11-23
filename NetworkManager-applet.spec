@@ -1,34 +1,36 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.6.5
-Release:	3
+Version:	0.7
+%define		_rev rev363
+Release:	0.%{_rev}.1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.6/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	1c94a41e2399d261985a75f0cd3b895b
-BuildRequires:	GConf2-devel >= 2.0
-BuildRequires:	NetworkManager-devel >= 0.6.5
+#Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/network-manager-applet-%{version}.tar.bz2
+Source0:	nm-applet-%{version}%{_rev}.tar.bz2
+# Source0-md5:	7af5853cbfef4820879e4c5de687afa8
+BuildRequires:	GConf2-devel >= 2.20.0
+BuildRequires:	NetworkManager-devel >= 0.7
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.60
+BuildRequires:	dbus-glib-devel >= 0.72
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-keyring-devel
-BuildRequires:	gnome-panel-devel >= 2.0
-BuildRequires:	gtk+2-devel >= 1:2.0
-BuildRequires:	hal-devel >= 0.5.2
-BuildRequires:	libgcrypt-devel
-BuildRequires:	libglade2-devel >= 1:2.0
-BuildRequires:	libiw-devel >= 1:28
-BuildRequires:	libnl-devel >= 1.0
-BuildRequires:	libnotify-devel >= 0.3.0
+BuildRequires:	gnome-common
+BuildRequires:	gtk+2-devel >= 2:2.12.0
+BuildRequires:	intltool >= 0.36.2
+BuildRequires:	gnome-keyring-devel >= 2.20.0
+BuildRequires:	gnutls-devel >= 1.2
+BuildRequires:	nss-devel >= 1:3.11
+BuildRequires:	libglade2-devel
+BuildRequires:	libiw-devel >= 1:28-0.pre9.1
+BuildRequires:	libnotify-devel >= 0.4.3
+BuildRequires:	libgnomeui-devel >= 2.20.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.268
-Requires(post):	/sbin/ldconfig
-Requires(post,preun):	/sbin/chkconfig
+BuildRequires:	rpmbuild(macros) >= 1.311
+Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
-Requires:	NetworkManager >= 0.6.5
+Requires:	NetworkManager >= 0.7
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -39,16 +41,33 @@ Network Manager Applet for GNOME.
 %description -l pl.UTF-8
 Aplet zarządcy sieci dla GNOME.
 
+%package devel
+Summary:	Network Manager Applet development files
+Summary(pl.UTF-8):	Pliki nagłówkowe apletu zarządcy sieci
+Group:		X11/Development/Libraries
+Requires:	NetworkManager-devel >= 0.7
+Requires:	gtk+2-devel >= 2:2.12.0
+
+%description devel
+Network Manager Applet development files.
+
+%description devel -l pl.UTF-8
+Pliki nagłówkowe apletu zarządcy sieci.
+
 %prep
-%setup -q -n nm-applet-%{version}
+%setup -q -n nm-applet-%{version}%{_rev}
 
 %build
+%{__glib_gettextize}
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure
+%configure \
+	--with-notify \
+	--with-nss
 %{__make}
 
 %install
@@ -65,14 +84,24 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install
+%update_icon_cache hicolor
+
+%postun
 %update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/*
+%doc AUTHORS CONTRIBUTING ChangeLog NEWS README
+%attr(755,root,root) %{_bindir}/nm-applet
+%attr(755,root,root) %{_bindir}/nm-connection-editor
+%attr(755,root,root) %{_bindir}/nm-vpn-properties
 %attr(755,root,root) %{_datadir}/nm-applet
+%{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
-%{_sysconfdir}/dbus-1/system.d/*
-%{_datadir}/gnome/autostart/*.desktop
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus-1/system.d/nm-applet.conf
+%dir %{_datadir}/gnome-vpn-properties
+%{_datadir}/gnome-vpn-properties/nm-vpn-properties.glade
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/NetworkManager/*.h
