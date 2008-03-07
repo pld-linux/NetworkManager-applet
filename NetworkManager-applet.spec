@@ -1,34 +1,34 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.6.5
-Release:	3
+Version:	0.6.6
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.6/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	1c94a41e2399d261985a75f0cd3b895b
-BuildRequires:	GConf2-devel >= 2.0
-BuildRequires:	NetworkManager-devel >= 0.6.5
+Source0:	http://people.redhat.com/dcbw/NetworkManager/0.6.6/nm-applet-%{version}.tar.gz
+# Source0-md5:	16e95a3515e4255d034b14045a9effd5
+BuildRequires:	GConf2-devel >= 2.20.0
+BuildRequires:	NetworkManager-devel >= 0.6.6
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel >= 0.60
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-keyring-devel
-BuildRequires:	gnome-panel-devel >= 2.0
-BuildRequires:	gtk+2-devel >= 1:2.0
-BuildRequires:	hal-devel >= 0.5.2
-BuildRequires:	libgcrypt-devel
-BuildRequires:	libglade2-devel >= 1:2.0
+BuildRequires:	gnome-common >= 2.20.0
+BuildRequires:	gnome-keyring-devel >= 2.20.0
+BuildRequires:	gtk+2-devel >= 2:2.12.0
+BuildRequires:	intltool >= 0.36.0
+BuildRequires:	libglade2-devel >= 1:2.6.2
+BuildRequires:	libgnomeui-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28
-BuildRequires:	libnl-devel >= 1.0
+BuildRequires:	libnl-devel >= 1:1.1
 BuildRequires:	libnotify-devel >= 0.3.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.268
-Requires(post):	/sbin/ldconfig
-Requires(post,preun):	/sbin/chkconfig
+BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	sed >= 4.0
+Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
-Requires:	NetworkManager >= 0.6.5
+Requires:	NetworkManager >= 0.6.6
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,7 +42,11 @@ Aplet zarządcy sieci dla GNOME.
 %prep
 %setup -q -n nm-applet-%{version}
 
+sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
+mv po/sr@{Latn,latin}.po
+
 %build
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -57,22 +61,24 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
-%find_lang %{name} --with-gnome --all-name
+%find_lang nm-applet
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install
 %update_icon_cache hicolor
 
-%files -f %{name}.lang
+%postun
+%update_icon_cache hicolor
+
+%files -f nm-applet.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/nm-applet
+%attr(755,root,root) %{_bindir}/nm-editor
 %attr(755,root,root) %{_datadir}/nm-applet
 %{_iconsdir}/hicolor/*/apps/*.png
-%{_sysconfdir}/dbus-1/system.d/*
-%{_datadir}/gnome/autostart/*.desktop
+%{_desktopdir}/nm-editor.desktop
+%{_sysconfdir}/dbus-1/system.d/nm-applet.conf
+%{_sysconfdir}/xdg/autostart/nm-applet.desktop
