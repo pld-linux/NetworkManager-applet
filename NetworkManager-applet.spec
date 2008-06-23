@@ -27,7 +27,6 @@ BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libgnomeui-devel >= 2.20.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	readline-devel
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
