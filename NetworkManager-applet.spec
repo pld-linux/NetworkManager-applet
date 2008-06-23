@@ -24,7 +24,6 @@ BuildRequires:	libnl-devel >= 1:1.1
 BuildRequires:	libnotify-devel >= 0.3.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	readline-devel
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk+2
