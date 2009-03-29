@@ -27,6 +27,7 @@ Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires:	NetworkManager >= 0.7.0
 Requires:	PolicyKit-gnome
+Requires:	notification-daemon
 Obsoletes:	NetworkManager-applet-devel
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
