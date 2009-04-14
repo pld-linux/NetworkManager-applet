@@ -1,17 +1,18 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.7.0
-Release:	2
+Version:	0.7.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	856fc7c4cf43c8614445d9fcf78177d1
+# Source0-md5:	d90a997e3e2051ce8866fe24f765141f
 BuildRequires:	GConf2-devel >= 2.20.0
-BuildRequires:	NetworkManager-devel >= 0.7.0
+BuildRequires:	NetworkManager-devel >= 0.7.1
 BuildRequires:	PolicyKit-gnome-devel >= 0.6
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
+BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.72
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-keyring-devel >= 2.20.0
@@ -25,8 +26,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
-Requires:	NetworkManager >= 0.7.0
+Requires:	NetworkManager >= 0.7.1
 Requires:	PolicyKit-gnome
+Requires:	dbus >= 1.2.6
 Requires:	notification-daemon
 Obsoletes:	NetworkManager-applet-devel
 # sr@Latn vs. sr@latin
@@ -40,7 +42,7 @@ Network Manager Applet for GNOME.
 Aplet zarządcy sieci dla GNOME.
 
 %prep
-%setup -q -n nm-applet-%{version}
+%setup -q -n network-manager-applet-%{version}
 
 %build
 %{__intltoolize}
@@ -83,4 +85,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
+%{_iconsdir}/hicolor/*/apps/*.svg
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus-1/system.d/nm-applet.conf
