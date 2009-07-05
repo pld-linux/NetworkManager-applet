@@ -2,7 +2,7 @@ Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
 Version:	0.7.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/network-manager-applet-%{version}.tar.bz2
@@ -29,7 +29,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires:	NetworkManager >= 0.7.1
 Requires:	PolicyKit-gnome
 Requires:	dbus >= 1.2.6
-Requires:	notification-daemon
+Suggests:	dbus(org.freedesktop.Notifications)
 Obsoletes:	NetworkManager-applet-devel
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
