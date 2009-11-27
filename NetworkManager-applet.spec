@@ -1,23 +1,23 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.7.1
-Release:	2
+Version:	0.7.2
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	d90a997e3e2051ce8866fe24f765141f
+# Source0-md5:	820927582d1170c9d8cc0db3cbe80c96
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
-BuildRequires:	NetworkManager-devel >= 0.7.1
+BuildRequires:	NetworkManager-devel >= 0.7.2
 BuildRequires:	PolicyKit-gnome-devel >= 0.6
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.2.6
-BuildRequires:	dbus-glib-devel >= 0.72
+BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-keyring-devel >= 2.20.0
-BuildRequires:	gtk+2-devel >= 2:2.12.0
+BuildRequires:	gtk+2-devel >= 2:2.14.0
 BuildRequires:	intltool >= 0.36.2
 BuildRequires:	libglade2-devel
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
@@ -26,9 +26,10 @@ BuildRequires:	libtool
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
+Requires(post,preun):	GConf2
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
-Requires:	NetworkManager >= 0.7.1
+Requires:	NetworkManager >= 0.7.2
 Requires:	PolicyKit-gnome
 Requires:	dbus >= 1.2.6
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -73,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_icon_cache hicolor
+%gconf_schema_install nm-applet.schemas
+
+%preun
+%gconf_schema_uninstall nm-applet.schemas
 
 %postun
 %update_icon_cache hicolor
@@ -82,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS CONTRIBUTING ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
+%{_sysconfdir}/gconf/schemas/nm-applet.schemas
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
