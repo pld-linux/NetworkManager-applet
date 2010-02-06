@@ -1,3 +1,4 @@
+%define		nmversion %{version}
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
@@ -9,8 +10,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/netwo
 # Source0-md5:	078fe62813a5ac3b96cd90f1f92dde60
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
-BuildRequires:	NetworkManager-devel >= 0.7.2
-BuildRequires:	PolicyKit-gnome-devel >= 0.6
+BuildRequires:	NetworkManager-devel >= %{nmversion}
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.2.6
@@ -25,11 +25,12 @@ BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
+BuildRequires:	polkit-devel
 BuildRequires:	rpmbuild(macros) >= 1.311
-Requires(post,preun):	GConf2
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
-Requires:	NetworkManager >= 0.7.2
+Requires(post,preun):	GConf2
+Requires:	NetworkManager >= %{nmversion}
 Requires:	PolicyKit-gnome
 Requires:	dbus >= 1.2.6
 Suggests:	dbus(org.freedesktop.Notifications)
