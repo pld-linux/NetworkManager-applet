@@ -2,12 +2,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.7.999
+Version:	0.8
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.7/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	078fe62813a5ac3b96cd90f1f92dde60
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.8/network-manager-applet-%{version}.tar.bz2
+# Source0-md5:	27071402152a7f8f62c4825f25ca9a3a
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -16,6 +16,7 @@ BuildRequires:	automake
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
+BuildRequires:	gnome-bluetooth-devel >= 2.28.0
 BuildRequires:	gnome-keyring-devel >= 2.20.0
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 BuildRequires:	intltool >= 0.36.2
@@ -23,16 +24,15 @@ BuildRequires:	libglade2-devel
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
 BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libtool
-BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
-BuildRequires:	polkit-devel
+BuildRequires:	polkit-devel >= 0.92
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,preun):	GConf2
 Requires:	NetworkManager >= %{nmversion}
-Requires:	PolicyKit-gnome
 Requires:	dbus >= 1.2.6
+Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
 Obsoletes:	NetworkManager-applet-devel
 # sr@Latn vs. sr@latin
@@ -45,13 +45,26 @@ Network Manager Applet for GNOME.
 %description -l pl.UTF-8
 Aplet zarządcy sieci dla GNOME.
 
+%package -n gnome-bluetooth-plugin-nma
+Summary:	NetworkManager applet plugin for GNOME Bluetooth
+Summary(pl.UTF-8):	Wtyczka NetworkManager Applet dla GNOME Bluetooth
+Group:		X11/Applications
+Requires:	NetworkManager-applet >= %{nmversion}
+Requires:	gnome-bluetooth >= 2.28.0
+
+%description -n gnome-bluetooth-plugin-nma
+NetworkManager applet plugin for GNOME Bluetooth.
+
+%description -n gnome-bluetooth-plugin-nma -l pl.UTF-8
+Wtyczka NetworkManager Applet dla GNOME Bluetooth.
+
 %prep
 %setup -q -n network-manager-applet-%{version}
 
 %build
 %{__intltoolize}
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -65,8 +78,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
+rm -f $RPM_BUILD_ROOT%{_libdir}/gnome-bluetooth/plugins/*.{a,la}
 
 %find_lang %{name} --with-gnome --all-name
 
@@ -96,3 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
 %config(noreplace) %verify(not md5 mtime size) /etc/dbus-1/system.d/nm-applet.conf
+
+%files -n gnome-bluetooth-plugin-nma
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/gnome-bluetooth/plugins/libnma.so
