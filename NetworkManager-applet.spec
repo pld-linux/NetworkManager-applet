@@ -17,10 +17,10 @@ BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-bluetooth-devel >= 2.28.0
-BuildRequires:	gnome-keyring-devel >= 2.20.0
 BuildRequires:	gtk+2-devel >= 2:2.14.0
 BuildRequires:	intltool >= 0.36.2
 BuildRequires:	libglade2-devel
+BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
 BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libtool
