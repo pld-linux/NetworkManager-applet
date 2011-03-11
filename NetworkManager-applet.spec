@@ -2,12 +2,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.8.2
-Release:	2
+Version:	0.8.996
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.8/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	e35d3c391edca440c24032e05870c130
+# Source0-md5:	f10f14b3dfd4f34201db01b9238debe7
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -24,7 +24,7 @@ BuildRequires:	libglade2-devel
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
 BuildRequires:	libnotify-devel >= 0.4.3
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel >= 0.92
 BuildRequires:	rpmbuild(macros) >= 1.311
@@ -110,7 +110,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/nm-connection-editor.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
-%config(noreplace) %verify(not md5 mtime size) /etc/dbus-1/system.d/nm-applet.conf
 
 %files -n gnome-bluetooth-plugin-nma
 %defattr(644,root,root,755)
