@@ -3,11 +3,12 @@ Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
 Version:	0.8.2
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.8/network-manager-applet-%{version}.tar.bz2
 # Source0-md5:	e35d3c391edca440c24032e05870c130
+Patch0:		%{name}-gtk224.patch
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -18,7 +19,7 @@ BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-bluetooth-devel >= 2.28.0
 BuildRequires:	gnome-common
-BuildRequires:	gtk+2-devel >= 2:2.14.0
+BuildRequires:	gtk+2-devel >= 2:2.24.0
 BuildRequires:	intltool >= 0.36.2
 BuildRequires:	libglade2-devel
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
@@ -62,6 +63,7 @@ Wtyczka NetworkManager Applet dla GNOME Bluetooth.
 
 %prep
 %setup -q -n network-manager-applet-%{version}
+%patch0 -p1
 
 %build
 %{__intltoolize}
