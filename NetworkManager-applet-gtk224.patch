@@ -1,0 +1,17 @@
+--- network-manager-applet-0.8.2/src/utils/mobile-wizard.c~	2010-04-06 08:35:03.000000000 +0200
++++ network-manager-applet-0.8.2/src/utils/mobile-wizard.c	2011-04-06 18:38:21.003919870 +0200
+@@ -747,11 +747,11 @@
+ 	gtk_table_attach (GTK_TABLE (unlisted_table), alignment,
+ 	                  1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 6, 6);
+ 
+-	self->provider_unlisted_type_combo = gtk_combo_box_new_text ();
++	self->provider_unlisted_type_combo = gtk_combo_box_text_new ();
+ 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), self->provider_unlisted_type_combo);
+-	gtk_combo_box_append_text (GTK_COMBO_BOX (self->provider_unlisted_type_combo),
++	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (self->provider_unlisted_type_combo),
+ 	                           _("My provider uses GSM technology (GPRS, EDGE, UMTS, HSPA)"));
+-	gtk_combo_box_append_text (GTK_COMBO_BOX (self->provider_unlisted_type_combo),
++	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (self->provider_unlisted_type_combo),
+ 	                           _("My provider uses CDMA technology (1xRTT, EVDO)"));
+ 	gtk_combo_box_set_active (GTK_COMBO_BOX (self->provider_unlisted_type_combo), 0);
+ 
