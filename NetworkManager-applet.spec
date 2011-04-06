@@ -2,12 +2,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.8.997
+Version:	0.8.998
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.8/network-manager-applet-%{version}.tar.bz2
-# Source0-md5:	522fa55df73c11002ee93133a235d932
+# Source0-md5:	60f33c7d2153a98a1036acab2bc71c6f
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -16,14 +16,14 @@ BuildRequires:	automake >= 1:1.10
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gnome-bluetooth-devel >= 2.28.0
 BuildRequires:	gnome-common
-BuildRequires:	gtk+2-devel >= 2:2.14.0
-BuildRequires:	intltool >= 0.36.2
-BuildRequires:	libglade2-devel
+BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
-BuildRequires:	libnotify-devel >= 0.4.3
+BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel >= 0.92
@@ -107,6 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
+%{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
