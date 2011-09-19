@@ -10,7 +10,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/netwo
 # Source0-md5:	d1716f7d3b97010d0486755f5c7cc831
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
-BuildRequires:	NetworkManager-devel >= %{nmversion}
+BuildRequires:	NetworkManager-devel >= 2:%{nmversion}
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	dbus-devel >= 1.2.6
@@ -33,7 +33,7 @@ BuildRequires:	xz
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,preun):	GConf2
-Requires:	NetworkManager >= %{nmversion}
+Requires:	NetworkManager >= 2:%{nmversion}
 Requires:	dbus >= 1.2.6
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
