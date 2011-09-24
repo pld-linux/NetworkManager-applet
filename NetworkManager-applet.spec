@@ -2,12 +2,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.0
-Release:	2
+Version:	0.9.1.90
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	d1716f7d3b97010d0486755f5c7cc831
+# Source0-md5:	016b4da01a1866360240c538f3f5c9fa
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= 2:%{nmversion}
@@ -21,6 +21,7 @@ BuildRequires:	gnome-bluetooth-devel >= 2.28.0
 BuildRequires:	gnome-common
 BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	intltool >= 0.40.0
+BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
 BuildRequires:	libnotify-devel
@@ -83,7 +84,8 @@ install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gnome-bluetooth/plugins/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gnome-bluetooth/plugins/*.{a,la} \
+	$RPM_BUILD_ROOT%{_libdir}/libnm-gtk.la
 
 %find_lang %{name} --with-gnome --all-name
 
@@ -108,11 +110,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/nm-applet.schemas
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
+%{_datadir}/libnm-gtk/wifi.ui
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
+%attr(755,root,root) %{_libdir}/libnm-gtk.so.0
+%attr(755,root,root) %{_libdir}/libnm-gtk.so.0.0.0
+
+#%files devel
+#%defattr(644,root,root,755)
+#%{_includedir}/libnm-gtk
+#%{_libdir}/libnm-gtk.so
+#%{_pkgconfigdir}/libnm-gtk.pc
+#
+#%files static
+#%defattr(644,root,root,755)
+#%{_libdir}/libnm-gtk.a
 
 %files -n gnome-bluetooth-plugin-nma
 %defattr(644,root,root,755)
