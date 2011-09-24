@@ -24,7 +24,7 @@ BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libiw-devel >= 1:28-0.pre9.1
-BuildRequires:	libnotify-devel
+BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel >= 0.92
@@ -110,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/nm-applet.schemas
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
-%{_datadir}/libnm-gtk/wifi.ui
+%{_datadir}/libnm-gtk
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
