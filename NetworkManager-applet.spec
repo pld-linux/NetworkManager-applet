@@ -56,19 +56,33 @@ Network Manager Applet for GNOME.
 Aplet zarządcy sieci dla GNOME.
 
 %package -n NetworkManager-gtk-lib
-Summary:	GTK+ dialogs for NetworkManager
+Summary:	GTK+ dialogs library for NetworkManager
+Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
+Requires:	GConf2-libs >= 2.20.0
+Requires:	NetworkManager-libs >= %{nmversion}
+Requires:	gtk+3 >= 3.0.0
 
 %description -n NetworkManager-gtk-lib
-GTK+ dialogs for NetworkManager
+GTK+ dialogs library for NetworkManager.
+
+%description -n NetworkManager-gtk-lib -l pl.UTF-8
+Biblioteka okien dialogowych GTK+ dla NetworkManagera.
 
 %package -n NetworkManager-gtk-lib-devel
 Summary:	Development package for NetworkManager-gtk-lib
+Summary(pl.UTF-8):	Pakiet programistyczny dla NetworkManager-gtk-lib
 Group:		X11/Development/Libraries
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
+Requires:	GConf2-devel >= 2.20.0
+Requires:	NetworkManager-devel >= %{nmversion}
+Requires:	gtk+3-devel >= 3.0.0
 
 %description -n NetworkManager-gtk-lib-devel
 Header files and libraries for NetworkManager-gtk-lib.
+
+%description -n NetworkManager-gtk-lib-devel -l pl.UTF-8
+Pakiet programistyczny dla NetworkManager-gtk-lib.
 
 %package -n gnome-bluetooth-plugin-nma
 Summary:	NetworkManager applet plugin for GNOME Bluetooth
