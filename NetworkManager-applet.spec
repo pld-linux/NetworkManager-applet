@@ -23,7 +23,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 BuildRequires:	gnome-common
-BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtk+3-devel >= 3.2.0
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
