@@ -2,16 +2,16 @@
 # Conditional build:
 %bcond_without	gnomebt		# GNOME-Bluetooth plugin
 #
-%define		nmversion 2:0.9.4.0
+%define		nmversion 2:0.9.6.0
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.4.1
-Release:	2
+Version:	0.9.6.2
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	a8de4ace4a40e432838e434f0bf71e7a
+# Source0-md5:	ed996efe2739e08ece32b4ccc4e73601
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -20,7 +20,7 @@ BuildRequires:	automake >= 1:1.10
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	glib2-devel >= 1:2.26.0
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 BuildRequires:	gnome-common
 BuildRequires:	gtk+3-devel >= 3.2.0
@@ -30,7 +30,7 @@ BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libnotify-devel >= 0.4.3
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires(post,postun):	gtk-update-icon-cache
@@ -39,6 +39,7 @@ Requires(post,preun):	GConf2
 Requires:	NetworkManager >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
+Requires:	glib2 >= 1:2.26.0
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -59,6 +60,7 @@ Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
 Requires:	GConf2-libs >= 2.20.0
 Requires:	NetworkManager-libs >= %{nmversion}
+Requires:	glib2 >= 1:2.26.0
 Requires:	gtk+3 >= 3.0.0
 
 %description -n NetworkManager-gtk-lib
@@ -74,6 +76,7 @@ Group:		X11/Development/Libraries
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	GConf2-devel >= 2.20.0
 Requires:	NetworkManager-devel >= %{nmversion}
+Requires:	glib2-devel >= 1:2.26.0
 Requires:	gtk+3-devel >= 3.0.0
 
 %description -n NetworkManager-gtk-lib-devel
@@ -130,13 +133,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_icon_cache hicolor
-%gconf_schema_install nm-applet.schemas
-
-%preun
-%gconf_schema_uninstall nm-applet.schemas
+%glib_compile_schemas
 
 %postun
 %update_icon_cache hicolor
+if [ "$1" = "0" ]; then
+	%glib_compile_schemas
+fi
 
 %post   -n NetworkManager-gtk-lib -p /sbin/ldconfig
 %postun -n NetworkManager-gtk-lib -p /sbin/ldconfig
@@ -146,7 +149,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS CONTRIBUTING ChangeLog
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
-%{_sysconfdir}/gconf/schemas/nm-applet.schemas
+%attr(755,root,root) %{_libexecdir}/nm-applet-migration-tool
+%{_datadir}/GConf/gsettings/nm-applet.convert
+%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
