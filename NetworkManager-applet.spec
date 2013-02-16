@@ -1,4 +1,6 @@
-#
+# TODO
+# - gtk+2 applet possible as well
+
 # Conditional build:
 %bcond_without	gnomebt		# GNOME-Bluetooth plugin
 #
@@ -109,6 +111,7 @@ Wtyczka NetworkManager Applet dla GNOME Bluetooth.
 %{__autoheader}
 %{__automake}
 %configure \
+	--with-gtkver=3 \
 	--disable-silent-rules \
 	--disable-static \
 	--enable-more-warnings=yes \
