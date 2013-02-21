@@ -4,16 +4,16 @@
 # Conditional build:
 %bcond_without	gnomebt		# GNOME-Bluetooth plugin
 #
-%define		nmversion 2:0.9.6.0
+%define		nmversion 2:0.9.8.0
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.6.4
+Version:	0.9.8.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	8750d83a1151f5f9b0edd2ffcd4e8fc6
+# Source0-md5:	531ce56c51ec86c5d2dc4cbe58649583
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -29,11 +29,12 @@ BuildRequires:	gtk+3-devel >= 3.2.0
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
-BuildRequires:	libnotify-devel >= 0.4.3
+BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -161,6 +162,8 @@ fi
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
+%{_mandir}/man1/nm-applet.1*
+%{_mandir}/man1/nm-connection-editor.1*
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
 
@@ -168,12 +171,14 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.0
+%{_libdir}/girepository-1.0/NMGtk-1.0.typelib
 %{_datadir}/libnm-gtk
 
 %files -n NetworkManager-gtk-lib-devel
 %defattr(644,root,root,755)
-%{_includedir}/libnm-gtk
 %{_libdir}/libnm-gtk.so
+%{_datadir}/gir-1.0/NMGtk-1.0.gir
+%{_includedir}/libnm-gtk
 %{_pkgconfigdir}/libnm-gtk.pc
 
 %if %{with gnomebt}
