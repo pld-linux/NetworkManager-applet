@@ -25,6 +25,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.26.0
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 BuildRequires:	gnome-common
+BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.2.0
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
@@ -176,7 +177,7 @@ fi
 
 %files -n NetworkManager-gtk-lib-devel
 %defattr(644,root,root,755)
-%{_libdir}/libnm-gtk.so
+%attr(755,root,root) %{_libdir}/libnm-gtk.so
 %{_datadir}/gir-1.0/NMGtk-1.0.gir
 %{_includedir}/libnm-gtk
 %{_pkgconfigdir}/libnm-gtk.pc
