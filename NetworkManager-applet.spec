@@ -4,16 +4,16 @@
 # Conditional build:
 %bcond_without	gnomebt		# GNOME-Bluetooth plugin
 #
-%define		nmversion 2:0.9.8.0
+%define		nmversion 2:0.9.8.2
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.8.0
+Version:	0.9.8.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	531ce56c51ec86c5d2dc4cbe58649583
+# Source0-md5:	1dbece6519f32aa43a746abd96181aa0
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
