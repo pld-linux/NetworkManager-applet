@@ -25,7 +25,6 @@ BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.26.0
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.2.0
 BuildRequires:	intltool >= 0.40.0
