@@ -32,6 +32,7 @@ BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libnotify-devel >= 0.7.0
+BuildRequires:	libsecret-devel
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.592
