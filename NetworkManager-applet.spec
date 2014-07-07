@@ -4,30 +4,30 @@
 # Conditional build:
 %bcond_with	gnomebt		# GNOME-Bluetooth plugin
 #
-%define		nmversion 2:0.9.8.10
+%define		nmversion 2:0.9.10
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.8.10
+Version:	0.9.10.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	5148348c139229c6a753f815f3f11e1c
+# Source0-md5:	6c23e6d208f6e78f2ecb7d0a03ddd03d
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
 BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.10
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.32
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel < 3.11}
 BuildRequires:	gobject-introspection-devel >= 0.9.6
-BuildRequires:	gtk+3-devel >= 3.2.0
+BuildRequires:	gtk+3-devel >= 3.4
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
@@ -45,7 +45,7 @@ Requires(post,preun):	GConf2
 Requires:	NetworkManager >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
-Requires:	glib2 >= 1:2.26.0
+Requires:	glib2 >= 1:2.32
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -66,8 +66,8 @@ Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
 Requires:	GConf2-libs >= 2.20.0
 Requires:	NetworkManager-libs >= %{nmversion}
-Requires:	glib2 >= 1:2.26.0
-Requires:	gtk+3 >= 3.0.0
+Requires:	glib2 >= 1:2.32
+Requires:	gtk+3 >= 3.4
 
 %description -n NetworkManager-gtk-lib
 GTK+ dialogs library for NetworkManager.
@@ -82,8 +82,8 @@ Group:		X11/Development/Libraries
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	GConf2-devel >= 2.20.0
 Requires:	NetworkManager-devel >= %{nmversion}
-Requires:	glib2-devel >= 1:2.26.0
-Requires:	gtk+3-devel >= 3.0.0
+Requires:	glib2-devel >= 1:2.32
+Requires:	gtk+3-devel >= 3.4
 
 %description -n NetworkManager-gtk-lib-devel
 Header files and libraries for NetworkManager-gtk-lib.
