@@ -1,19 +1,16 @@
-# TODO
-# - gtk+2 applet possible as well
-#
 # Conditional build:
 %bcond_with	gnomebt		# GNOME-Bluetooth plugin
 #
-%define		nmversion 2:0.9.10
+%define		nmversion 2:1.0.0
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	0.9.10.0
+Version:	1.0.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	6c23e6d208f6e78f2ecb7d0a03ddd03d
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.0/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	29c1ea523584aff7aefb2497d8655fee
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
@@ -115,7 +112,6 @@ Wtyczka NetworkManager Applet dla GNOME Bluetooth.
 %{__autoheader}
 %{__automake}
 %configure \
-	--with-gtkver=3 \
 	--disable-silent-rules \
 	--disable-static \
 	--enable-more-warnings=yes \
