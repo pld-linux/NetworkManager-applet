@@ -23,6 +23,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.32
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel < 3.11}
+BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
 BuildRequires:	intltool >= 0.40.0
@@ -42,6 +43,7 @@ Requires(post,preun):	GConf2
 Requires:	NetworkManager >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
+Requires:	dbus-glib >= 0.74
 Requires:	glib2 >= 1:2.32
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
@@ -65,6 +67,7 @@ Requires:	GConf2-libs >= 2.20.0
 Requires:	NetworkManager-libs >= %{nmversion}
 Requires:	glib2 >= 1:2.32
 Requires:	gtk+3 >= 3.4
+Requires:	udev-glib >= 1:147
 
 %description -n NetworkManager-gtk-lib
 GTK+ dialogs library for NetworkManager.
