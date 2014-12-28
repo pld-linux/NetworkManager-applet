@@ -19,7 +19,7 @@ BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel < 3.11}
