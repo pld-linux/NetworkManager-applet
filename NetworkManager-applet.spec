@@ -5,12 +5,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.0.2
+Version:	1.0.4
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.0/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	5b2a8baa6b038b3e55e5444ff321e80d
+# Source0-md5:	7fc2ed3f0c46ed41ddabe99d51513b1c
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
@@ -21,8 +21,8 @@ BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
-%{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 %{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel < 3.11}
+%{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
@@ -79,9 +79,9 @@ Biblioteka okien dialogowych GTK+ dla NetworkManagera.
 Summary:	Development package for NetworkManager-gtk-lib
 Summary(pl.UTF-8):	Pakiet programistyczny dla NetworkManager-gtk-lib
 Group:		X11/Development/Libraries
-Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	GConf2-devel >= 2.20.0
 Requires:	NetworkManager-devel >= %{nmversion}
+Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.32
 Requires:	gtk+3-devel >= 3.4
 
