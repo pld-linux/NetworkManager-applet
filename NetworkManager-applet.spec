@@ -5,12 +5,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.0.4
+Version:	1.0.6
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.0/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	7fc2ed3f0c46ed41ddabe99d51513b1c
+# Source0-md5:	dbdead7c5838e422d4b80565b7657a2a
 URL:		http://projects.gnome.org/NetworkManager/
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
@@ -26,7 +26,7 @@ BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
-BuildRequires:	intltool >= 0.40.0
+BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel >= 2.20.0
 BuildRequires:	libnotify-devel >= 0.7.0
@@ -37,14 +37,14 @@ BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
+Requires(post,postun):	glib2 >= 1:2.32
 Requires(post,postun):	gtk-update-icon-cache
-Requires(post,postun):	hicolor-icon-theme
-Requires(post,preun):	GConf2
 Requires:	NetworkManager >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
 Requires:	dbus-glib >= 0.74
 Requires:	glib2 >= 1:2.32
+Requires:	hicolor-icon-theme
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -161,6 +161,7 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
+%{_datadir}/appdata/org.gnome.nm-connection-editor.appdata.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
