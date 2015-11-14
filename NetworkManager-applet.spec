@@ -11,7 +11,7 @@ License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.0/network-manager-applet-%{version}.tar.xz
 # Source0-md5:	dbdead7c5838e422d4b80565b7657a2a
-URL:		http://projects.gnome.org/NetworkManager/
+URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
