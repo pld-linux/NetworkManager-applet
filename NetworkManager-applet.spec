@@ -1,16 +1,13 @@
-# Conditional build:
-%bcond_with	gnomebt		# GNOME-Bluetooth plugin
-#
-%define		nmversion 2:1.0.0
+%define		nmversion 2:1.2.0
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.0.10
+Version:	1.2.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.0/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	86b17e1bf1a37c649874883b587c6db6
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.2/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	54b29dff37348fce09a567907688e172
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
@@ -21,8 +18,6 @@ BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
-%{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel < 3.11}
-%{?with_gnomebt:BuildRequires:	gnome-bluetooth-devel >= 2.28.0}
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
@@ -49,6 +44,7 @@ Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
 Obsoletes:	NetworkManager-applet-devel
+Obsoletes:	gnome-bluetooth-plugin-nma < 1.2.2
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -91,19 +87,6 @@ Header files and libraries for NetworkManager-gtk-lib.
 %description -n NetworkManager-gtk-lib-devel -l pl.UTF-8
 Pakiet programistyczny dla NetworkManager-gtk-lib.
 
-%package -n gnome-bluetooth-plugin-nma
-Summary:	NetworkManager applet plugin for GNOME Bluetooth
-Summary(pl.UTF-8):	Wtyczka NetworkManager Applet dla GNOME Bluetooth
-Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	gnome-bluetooth >= 2.28.0
-
-%description -n gnome-bluetooth-plugin-nma
-NetworkManager applet plugin for GNOME Bluetooth.
-
-%description -n gnome-bluetooth-plugin-nma -l pl.UTF-8
-Wtyczka NetworkManager Applet dla GNOME Bluetooth.
-
 %prep
 %setup -q -n network-manager-applet-%{version}
 
@@ -117,8 +100,7 @@ Wtyczka NetworkManager Applet dla GNOME Bluetooth.
 %configure \
 	--disable-silent-rules \
 	--disable-static \
-	--enable-more-warnings=yes \
-	%{!?with_gnomebt:--without-bluetooth}
+	--enable-more-warnings=yes
 %{__make}
 
 %install
@@ -128,10 +110,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%if %{with gnomebt}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gnome-bluetooth/plugins/*.la
-%endif
-%{__rm}	$RPM_BUILD_ROOT%{_libdir}/libnm-gtk.la
+%{__rm}	$RPM_BUILD_ROOT%{_libdir}/{libnm-gtk,libnma}.la
 
 %find_lang %{name} --with-gnome --all-name
 
@@ -156,7 +135,6 @@ fi
 %doc AUTHORS CONTRIBUTING ChangeLog
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
-%attr(755,root,root) %{_libexecdir}/nm-applet-migration-tool
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
@@ -174,18 +152,20 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.0
+%attr(755,root,root) %{_libdir}/libnma.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libnma.so.0
+%{_libdir}/girepository-1.0/NMA-1.0.typelib
 %{_libdir}/girepository-1.0/NMGtk-1.0.typelib
 %{_datadir}/libnm-gtk
+%{_datadir}/libnma
 
 %files -n NetworkManager-gtk-lib-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnm-gtk.so
+%attr(755,root,root) %{_libdir}/libnma.so
+%{_datadir}/gir-1.0/NMA-1.0.gir
 %{_datadir}/gir-1.0/NMGtk-1.0.gir
 %{_includedir}/libnm-gtk
+%{_includedir}/libnma
 %{_pkgconfigdir}/libnm-gtk.pc
-
-%if %{with gnomebt}
-%files -n gnome-bluetooth-plugin-nma
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/gnome-bluetooth/plugins/libnma.so
-%endif
+%{_pkgconfigdir}/libnma.pc
