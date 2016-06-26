@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	appindicator	# application indicators instead of xembed systray support
+#
 %define		nmversion 2:1.2.0
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
@@ -9,7 +13,6 @@ Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.2/network-manager-applet-%{version}.tar.xz
 # Source0-md5:	54b29dff37348fce09a567907688e172
 URL:		https://wiki.gnome.org/Projects/NetworkManager
-BuildRequires:	GConf2-devel >= 2.20.0
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
 BuildRequires:	autoconf >= 2.63
@@ -23,7 +26,8 @@ BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
-BuildRequires:	libgnome-keyring-devel >= 2.20.0
+%{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
+%{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel
 BuildRequires:	libtool >= 2:2.2.6
@@ -59,7 +63,6 @@ Aplet zarządcy sieci dla GNOME.
 Summary:	GTK+ dialogs library for NetworkManager
 Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
-Requires:	GConf2-libs >= 2.20.0
 Requires:	NetworkManager-libs >= %{nmversion}
 Requires:	glib2 >= 1:2.32
 Requires:	gtk+3 >= 3.4
@@ -75,7 +78,6 @@ Biblioteka okien dialogowych GTK+ dla NetworkManagera.
 Summary:	Development package for NetworkManager-gtk-lib
 Summary(pl.UTF-8):	Pakiet programistyczny dla NetworkManager-gtk-lib
 Group:		X11/Development/Libraries
-Requires:	GConf2-devel >= 2.20.0
 Requires:	NetworkManager-devel >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.32
@@ -100,7 +102,8 @@ Pakiet programistyczny dla NetworkManager-gtk-lib.
 %configure \
 	--disable-silent-rules \
 	--disable-static \
-	--enable-more-warnings=yes
+	--enable-more-warnings=yes \
+	%{?with_appindicator:--with-appindicator}
 %{__make}
 
 %install
