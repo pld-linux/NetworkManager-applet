@@ -2,16 +2,16 @@
 # Conditional build:
 %bcond_with	appindicator	# application indicators instead of xembed systray support
 #
-%define		nmversion 2:1.2.0
+%define		nmversion 2:1.4
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.2.2
+Version:	1.4.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.2/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	54b29dff37348fce09a567907688e172
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.4/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	30155703e3a82394bb0276c8ce23a5f7
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -21,11 +21,11 @@ BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
-BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
+BuildRequires:	jansson-devel >= 2.3
 %{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
 %{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
 BuildRequires:	libnotify-devel >= 0.7.0
@@ -44,6 +44,7 @@ Requires:	dbus >= 1.2.6
 Requires:	dbus-glib >= 0.74
 Requires:	glib2 >= 1:2.32
 Requires:	hicolor-icon-theme
+Requires:	jansson >= 2.3
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -142,7 +143,7 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/nm-applet
-%{_datadir}/appdata/org.gnome.nm-connection-editor.appdata.xml
+%{_datadir}/appdata/nm-connection-editor.appdata.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
