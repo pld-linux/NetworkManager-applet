@@ -6,12 +6,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.4.2
+Version:	1.4.4
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.4/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	35684ee788d8d1d6f913c63bb0ada0cf
+# Source0-md5:	3f82cedc4703df0277c76d9feb5bf2c8
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -142,7 +142,6 @@ fi
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
-%{_datadir}/nm-applet
 %{_datadir}/appdata/nm-connection-editor.appdata.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
@@ -160,8 +159,6 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libnma.so.0
 %{_libdir}/girepository-1.0/NMA-1.0.typelib
 %{_libdir}/girepository-1.0/NMGtk-1.0.typelib
-%{_datadir}/libnm-gtk
-%{_datadir}/libnma
 
 %files -n NetworkManager-gtk-lib-devel
 %defattr(644,root,root,755)
