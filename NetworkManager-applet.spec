@@ -6,12 +6,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.4.4
+Version:	1.4.6
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.4/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	3f82cedc4703df0277c76d9feb5bf2c8
+# Source0-md5:	7f5bb421678f844649d8d581def2191e
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -23,6 +23,7 @@ BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.4
+BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
 BuildRequires:	jansson-devel >= 2.3
@@ -76,8 +77,8 @@ GTK+ dialogs library for NetworkManager.
 Biblioteka okien dialogowych GTK+ dla NetworkManagera.
 
 %package -n NetworkManager-gtk-lib-devel
-Summary:	Development package for NetworkManager-gtk-lib
-Summary(pl.UTF-8):	Pakiet programistyczny dla NetworkManager-gtk-lib
+Summary:	Development package for NetworkManager GTK+ libraries
+Summary(pl.UTF-8):	Pakiet programistyczny bibliotek GTK+ NetworkManagera
 Group:		X11/Development/Libraries
 Requires:	NetworkManager-devel >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
@@ -85,10 +86,21 @@ Requires:	glib2-devel >= 1:2.32
 Requires:	gtk+3-devel >= 3.4
 
 %description -n NetworkManager-gtk-lib-devel
-Header files and libraries for NetworkManager-gtk-lib.
+Header files for NetworkManager GTK+ libraries.
 
 %description -n NetworkManager-gtk-lib-devel -l pl.UTF-8
-Pakiet programistyczny dla NetworkManager-gtk-lib.
+Pakiet programistyczny bibliotek GTK+ NetworkManagera.
+
+%package -n NetworkManager-gtk-lib-apidocs
+Summary:	API documentation for NMA (NetworkManager Applet) library
+Summary(pl.UTF-8):	Dokumentacja API biblioteki NMA (NetworkManager Applet)
+Group:		Documentation
+
+%description -n NetworkManager-gtk-lib-apidocs
+API documentation for NMA (NetworkManager Applet) library.
+
+%description -n NetworkManager-gtk-lib-apidocs -l pl.UTF-8
+Dokumentacja API biblioteki NMA (NetworkManager Applet).
 
 %prep
 %setup -q -n network-manager-applet-%{version}
@@ -104,7 +116,8 @@ Pakiet programistyczny dla NetworkManager-gtk-lib.
 	--disable-silent-rules \
 	--disable-static \
 	--enable-more-warnings=yes \
-	%{?with_appindicator:--with-appindicator}
+	%{?with_appindicator:--with-appindicator} \
+	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
 %install
@@ -170,3 +183,7 @@ fi
 %{_includedir}/libnma
 %{_pkgconfigdir}/libnm-gtk.pc
 %{_pkgconfigdir}/libnma.pc
+
+%files -n NetworkManager-gtk-lib-apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/libnma
