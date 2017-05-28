@@ -2,16 +2,16 @@
 # Conditional build:
 %bcond_with	appindicator	# application indicators instead of xembed systray support
 #
-%define		nmversion 2:1.4
+%define		nmversion 2:1.8
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.4.6
+Version:	1.8.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.4/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	7f5bb421678f844649d8d581def2191e
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.8/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	cb4990434109a0b29b077d59fbecb303
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -19,6 +19,7 @@ BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
+BuildRequires:	gcr-devel >= 3.14
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.32
 BuildRequires:	gobject-introspection-devel >= 0.9.6
@@ -66,6 +67,7 @@ Summary:	GTK+ dialogs library for NetworkManager
 Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
 Requires:	NetworkManager-libs >= %{nmversion}
+Requires:	gcr >= 3.14
 Requires:	glib2 >= 1:2.32
 Requires:	gtk+3 >= 3.4
 Requires:	udev-glib >= 1:147
@@ -161,8 +163,8 @@ fi
 %{_desktopdir}/nm-connection-editor.desktop
 %{_mandir}/man1/nm-applet.1*
 %{_mandir}/man1/nm-connection-editor.1*
-%{_iconsdir}/hicolor/*/apps/*.png
-%{_iconsdir}/hicolor/*/apps/*.svg
+%{_iconsdir}/hicolor/*x*/apps/nm-*.png
+%{_iconsdir}/hicolor/scalable/apps/nm-*.svg
 
 %files -n NetworkManager-gtk-lib
 %defattr(644,root,root,755)
