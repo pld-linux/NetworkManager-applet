@@ -21,17 +21,18 @@ BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
 BuildRequires:	gettext-tools
-BuildRequires:	glib2-devel >= 1:2.32
+BuildRequires:	glib2-devel >= 1:2.38
 BuildRequires:	gobject-introspection-devel >= 0.9.6
-BuildRequires:	gtk+3-devel >= 3.4
+BuildRequires:	gtk+3-devel >= 3.10
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
-BuildRequires:	jansson-devel >= 2.3
+BuildRequires:	jansson-devel >= 2.7
 %{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
 %{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
 BuildRequires:	libnotify-devel >= 0.7.0
-BuildRequires:	libsecret-devel
+BuildRequires:	libsecret-devel >= 0.18
+BuildRequires:	libselinux-devel
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	mobile-broadband-provider-info-devel
 BuildRequires:	pkgconfig
@@ -39,15 +40,16 @@ BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
-Requires(post,postun):	glib2 >= 1:2.32
+Requires(post,postun):	glib2 >= 1:2.38
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	NetworkManager >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
 Requires:	dbus-glib >= 0.74
-Requires:	glib2 >= 1:2.32
+Requires:	glib2 >= 1:2.38
 Requires:	hicolor-icon-theme
-Requires:	jansson >= 2.3
+Requires:	jansson >= 2.7
+Requires:	libsecret >= 0.18
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
@@ -69,8 +71,8 @@ Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
 Group:		X11/Libraries
 Requires:	NetworkManager-libs >= %{nmversion}
 Requires:	gcr >= 3.14
-Requires:	glib2 >= 1:2.32
-Requires:	gtk+3 >= 3.4
+Requires:	glib2 >= 1:2.38
+Requires:	gtk+3 >= 3.10
 Requires:	udev-glib >= 1:147
 
 %description -n NetworkManager-gtk-lib
@@ -85,8 +87,8 @@ Summary(pl.UTF-8):	Pakiet programistyczny bibliotek GTK+ NetworkManagera
 Group:		X11/Development/Libraries
 Requires:	NetworkManager-devel >= %{nmversion}
 Requires:	NetworkManager-gtk-lib = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32
-Requires:	gtk+3-devel >= 3.4
+Requires:	glib2-devel >= 1:2.38
+Requires:	gtk+3-devel >= 3.10
 
 %description -n NetworkManager-gtk-lib-devel
 Header files for NetworkManager GTK+ libraries.
