@@ -6,12 +6,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.8.20
+Version:	1.8.22
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.8/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	06aafa851762146034351aa72ebb23d4
+# Source0-md5:	e0373f4c0d0637716e6e385799a9080f
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -20,12 +20,11 @@ BuildRequires:	automake >= 1:1.11
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.38
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.10
 BuildRequires:	gtk-doc >= 1.0
-BuildRequires:	intltool >= 0.50.1
 BuildRequires:	iso-codes
 BuildRequires:	jansson-devel >= 2.7
 %{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
@@ -111,7 +110,7 @@ Dokumentacja API biblioteki NMA (NetworkManager Applet).
 %setup -q -n network-manager-applet-%{version}
 
 %build
-%{__intltoolize}
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
