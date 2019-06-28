@@ -7,19 +7,19 @@ Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
 Version:	1.8.22
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.8/network-manager-applet-%{version}.tar.xz
 # Source0-md5:	e0373f4c0d0637716e6e385799a9080f
+Patch0:		%{name}-gtkdoc.patch
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
+BuildRequires:	gcr-ui-devel >= 3.14
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.38
 BuildRequires:	gobject-introspection-devel >= 0.9.6
@@ -32,10 +32,11 @@ BuildRequires:	jansson-devel >= 2.7
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel >= 0.18
 BuildRequires:	libselinux-devel
-BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	meson >= 0.46.0
 BuildRequires:	mobile-broadband-provider-info-devel
+BuildRequires:	ninja
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
@@ -108,31 +109,20 @@ Dokumentacja API biblioteki NMA (NetworkManager Applet).
 
 %prep
 %setup -q -n network-manager-applet-%{version}
+%patch0 -p1
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	--disable-static \
-	--enable-more-warnings=yes \
-	%{?with_appindicator:--with-appindicator} \
-	--with-libnm-gtk \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	-Dappindicator=%{?with_appindicator:yes}%{!?with_appindicator:no} \
+	-Dgtk_doc=true \
+	-Dlibnm_gtk=true
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm}	$RPM_BUILD_ROOT%{_libdir}/{libnm-gtk,libnma}.la
+%ninja_install -C build
 
 %find_lang %{name} --with-gnome --all-name
 
