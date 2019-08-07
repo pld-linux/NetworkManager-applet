@@ -1,13 +1,14 @@
 #
 # Conditional build:
 %bcond_with	appindicator	# application indicators instead of xembed systray support
+%bcond_with	libnm_gtk	# build deprecated libnm-gtk lib (depends on libnm-glib dropped in NetworkManager 1.20)
 #
 %define		nmversion 2:1.8
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
 Version:	1.8.22
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.8/network-manager-applet-%{version}.tar.xz
@@ -115,7 +116,7 @@ Dokumentacja API biblioteki NMA (NetworkManager Applet).
 %meson build \
 	-Dappindicator=%{?with_appindicator:yes}%{!?with_appindicator:no} \
 	-Dgtk_doc=true \
-	-Dlibnm_gtk=true
+	-Dlibnm_gtk=%{__true_false libnm_gtk}
 %ninja_build -C build
 
 %install
@@ -161,23 +162,27 @@ fi
 
 %files -n NetworkManager-gtk-lib
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.0
 %attr(755,root,root) %{_libdir}/libnma.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libnma.so.0
 %{_libdir}/girepository-1.0/NMA-1.0.typelib
+%if %{with libnm_gtk}
+%attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.0
 %{_libdir}/girepository-1.0/NMGtk-1.0.typelib
+%endif
 
 %files -n NetworkManager-gtk-lib-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnm-gtk.so
 %attr(755,root,root) %{_libdir}/libnma.so
 %{_datadir}/gir-1.0/NMA-1.0.gir
+%{_includedir}/libnma
+%{_pkgconfigdir}/libnma.pc
+%if %{with libnm_gtk}
+%attr(755,root,root) %{_libdir}/libnm-gtk.so
 %{_datadir}/gir-1.0/NMGtk-1.0.gir
 %{_includedir}/libnm-gtk
-%{_includedir}/libnma
 %{_pkgconfigdir}/libnm-gtk.pc
-%{_pkgconfigdir}/libnma.pc
+%endif
 
 %files -n NetworkManager-gtk-lib-apidocs
 %defattr(644,root,root,755)
