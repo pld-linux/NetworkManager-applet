@@ -17,6 +17,9 @@ Patch0:		%{name}-gtkdoc.patch
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
+%if %{with libnm_gtk}
+BuildRequires:	NetworkManager-devel < 2:1.20
+%endif
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
