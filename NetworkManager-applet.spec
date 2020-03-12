@@ -7,13 +7,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.8.24
+Version:	1.16.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.8/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	5c1bf351fde5adc12200345550516050
-Patch0:		%{name}-gtkdoc.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.16/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	9652c2757e85d6caba657405cf794fbd
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -33,6 +32,7 @@ BuildRequires:	iso-codes
 BuildRequires:	jansson-devel >= 2.7
 %{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
 %{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
+BuildRequires:	libnma-devel >= 1.8.27
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel >= 0.18
 BuildRequires:	libselinux-devel
@@ -47,12 +47,12 @@ BuildRequires:	xz
 Requires(post,postun):	glib2 >= 1:2.38
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	NetworkManager >= %{nmversion}
-Requires:	NetworkManager-gtk-lib = %{version}-%{release}
 Requires:	dbus >= 1.2.6
 Requires:	dbus-glib >= 0.74
 Requires:	glib2 >= 1:2.38
 Requires:	hicolor-icon-theme
 Requires:	jansson >= 2.7
+Requires:	libnma >= 1.8.27
 Requires:	libsecret >= 0.18
 Requires:	mobile-broadband-provider-info
 Requires:	polkit-gnome
@@ -69,51 +69,8 @@ Network Manager Applet for GNOME.
 %description -l pl.UTF-8
 Aplet zarządcy sieci dla GNOME.
 
-%package -n NetworkManager-gtk-lib
-Summary:	GTK+ dialogs library for NetworkManager
-Summary(pl.UTF-8):	Biblioteka okien dialogowych GTK+ dla NetworkManagera
-Group:		X11/Libraries
-Requires:	NetworkManager-libs >= %{nmversion}
-Requires:	gcr >= 3.14
-Requires:	glib2 >= 1:2.38
-Requires:	gtk+3 >= 3.10
-Requires:	udev-glib >= 1:147
-
-%description -n NetworkManager-gtk-lib
-GTK+ dialogs library for NetworkManager.
-
-%description -n NetworkManager-gtk-lib -l pl.UTF-8
-Biblioteka okien dialogowych GTK+ dla NetworkManagera.
-
-%package -n NetworkManager-gtk-lib-devel
-Summary:	Development package for NetworkManager GTK+ libraries
-Summary(pl.UTF-8):	Pakiet programistyczny bibliotek GTK+ NetworkManagera
-Group:		X11/Development/Libraries
-Requires:	NetworkManager-devel >= %{nmversion}
-Requires:	NetworkManager-gtk-lib = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.38
-Requires:	gtk+3-devel >= 3.10
-
-%description -n NetworkManager-gtk-lib-devel
-Header files for NetworkManager GTK+ libraries.
-
-%description -n NetworkManager-gtk-lib-devel -l pl.UTF-8
-Pakiet programistyczny bibliotek GTK+ NetworkManagera.
-
-%package -n NetworkManager-gtk-lib-apidocs
-Summary:	API documentation for NMA (NetworkManager Applet) library
-Summary(pl.UTF-8):	Dokumentacja API biblioteki NMA (NetworkManager Applet)
-Group:		Documentation
-
-%description -n NetworkManager-gtk-lib-apidocs
-API documentation for NMA (NetworkManager Applet) library.
-
-%description -n NetworkManager-gtk-lib-apidocs -l pl.UTF-8
-Dokumentacja API biblioteki NMA (NetworkManager Applet).
-
 %prep
 %setup -q -n network-manager-applet-%{version}
-%patch0 -p1
 
 %build
 %meson build \
@@ -143,16 +100,12 @@ if [ "$1" = "0" ]; then
 	%glib_compile_schemas
 fi
 
-%post   -n NetworkManager-gtk-lib -p /sbin/ldconfig
-%postun -n NetworkManager-gtk-lib -p /sbin/ldconfig
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS CONTRIBUTING ChangeLog
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
 %{_datadir}/GConf/gsettings/nm-applet.convert
-%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/metainfo/nm-connection-editor.appdata.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
@@ -162,31 +115,3 @@ fi
 %{_mandir}/man1/nm-connection-editor.1*
 %{_iconsdir}/hicolor/*x*/apps/nm-*.png
 %{_iconsdir}/hicolor/scalable/apps/nm-*.svg
-
-%files -n NetworkManager-gtk-lib
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnma.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnma.so.0
-%{_libdir}/girepository-1.0/NMA-1.0.typelib
-%if %{with libnm_gtk}
-%attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.0
-%{_libdir}/girepository-1.0/NMGtk-1.0.typelib
-%endif
-
-%files -n NetworkManager-gtk-lib-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnma.so
-%{_datadir}/gir-1.0/NMA-1.0.gir
-%{_includedir}/libnma
-%{_pkgconfigdir}/libnma.pc
-%if %{with libnm_gtk}
-%attr(755,root,root) %{_libdir}/libnm-gtk.so
-%{_datadir}/gir-1.0/NMGtk-1.0.gir
-%{_includedir}/libnm-gtk
-%{_pkgconfigdir}/libnm-gtk.pc
-%endif
-
-%files -n NetworkManager-gtk-lib-apidocs
-%defattr(644,root,root,755)
-%{_gtkdocdir}/libnma
