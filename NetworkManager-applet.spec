@@ -1,7 +1,6 @@
 #
 # Conditional build:
 %bcond_with	appindicator	# application indicators instead of xembed systray support
-%bcond_with	libnm_gtk	# build deprecated libnm-gtk lib (depends on libnm-glib dropped in NetworkManager 1.20)
 #
 %define		nmversion 2:1.8
 Summary:	Network Manager for GNOME
@@ -16,9 +15,6 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.16/netw
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
-%if %{with libnm_gtk}
-BuildRequires:	NetworkManager-devel < 2:1.20
-%endif
 BuildRequires:	dbus-devel >= 1.2.6
 BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
@@ -27,7 +23,6 @@ BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.38
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.10
-BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	iso-codes
 BuildRequires:	jansson-devel >= 2.7
 %{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
@@ -37,8 +32,7 @@ BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel >= 0.18
 BuildRequires:	libselinux-devel
 BuildRequires:	meson >= 0.46.0
-BuildRequires:	mobile-broadband-provider-info-devel
-BuildRequires:	ninja
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
@@ -74,9 +68,8 @@ Aplet zarządcy sieci dla GNOME.
 
 %build
 %meson build \
-	-Dappindicator=%{?with_appindicator:yes}%{!?with_appindicator:no} \
-	-Dgtk_doc=true \
-	-Dlibnm_gtk=%{__true_false libnm_gtk}
+	-Dappindicator=%{?with_appindicator:yes}%{!?with_appindicator:no}
+
 %ninja_build -C build
 
 %install
