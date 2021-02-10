@@ -10,7 +10,7 @@ Version:	1.20.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/1.20/network-manager-applet-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/network-manager-applet/1.20/network-manager-applet-%{version}.tar.xz
 # Source0-md5:	33dc7ec7170b12fd8595acbf53055870
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
@@ -53,8 +53,6 @@ Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
 Obsoletes:	NetworkManager-applet-devel
 Obsoletes:	gnome-bluetooth-plugin-nma < 1.2.2
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
