@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	appindicator	# application indicators instead of xembed systray support
+%bcond_without	appindicator	# without application indicators
 #
 %define		nmversion 2:1.8
 Summary:	Network Manager for GNOME
