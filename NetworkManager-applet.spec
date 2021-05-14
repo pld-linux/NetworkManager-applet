@@ -25,7 +25,7 @@ BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.10
 BuildRequires:	iso-codes
 BuildRequires:	jansson-devel >= 2.7
-%{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel >= 0.1}
+%{?with_appindicator:BuildRequires:	libayatana-appindicator-gtk3-devel >= 0.1}
 %{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
 BuildRequires:	libnma-devel >= 1.8.27
 BuildRequires:	libnotify-devel >= 0.7.0
