@@ -6,12 +6,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.26.0
+Version:	1.28.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/network-manager-applet/1.26/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	8085a21a0fccfe54f7f8cccd928ef7c0
+Source0:	https://download.gnome.org/sources/network-manager-applet/1.28/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	d714602e88aabaf95a9ad9c3d76f1094
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
