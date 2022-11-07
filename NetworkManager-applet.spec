@@ -98,7 +98,6 @@ fi
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/metainfo/nm-connection-editor.appdata.xml
-%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
