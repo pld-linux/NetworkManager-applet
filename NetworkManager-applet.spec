@@ -6,12 +6,12 @@
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.28.0
+Version:	1.30.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/network-manager-applet/1.28/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	d714602e88aabaf95a9ad9c3d76f1094
+Source0:	https://download.gnome.org/sources/network-manager-applet/1.30/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	1ad82752f1590dd356afda8a451910f2
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
 BuildRequires:	NetworkManager-devel >= %{nmversion}
@@ -20,7 +20,7 @@ BuildRequires:	dbus-glib-devel >= 0.74
 BuildRequires:	gcr-devel >= 3.14
 BuildRequires:	gcr-ui-devel >= 3.14
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.38
+BuildRequires:	glib2-devel >= 1:2.40
 BuildRequires:	gobject-introspection-devel >= 0.9.6
 BuildRequires:	gtk+3-devel >= 3.10
 BuildRequires:	iso-codes
@@ -28,7 +28,6 @@ BuildRequires:	jansson-devel >= 2.7
 %{?with_appindicator:BuildRequires:	libayatana-appindicator-gtk3-devel >= 0.1}
 %{?with_appindicator:BuildRequires:	libdbusmenu-gtk3-devel >= 16.04.0}
 BuildRequires:	libnma-devel >= 1.8.27
-BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel >= 0.18
 BuildRequires:	libselinux-devel
 BuildRequires:	meson >= 0.46.0
@@ -38,12 +37,12 @@ BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
-Requires(post,postun):	glib2 >= 1:2.38
+Requires(post,postun):	glib2 >= 1:2.40
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	NetworkManager >= %{nmversion}
 Requires:	dbus >= 1.2.6
 Requires:	dbus-glib >= 0.74
-Requires:	glib2 >= 1:2.38
+Requires:	glib2 >= 1:2.40
 Requires:	hicolor-icon-theme
 Requires:	jansson >= 2.7
 Requires:	libnma >= 1.8.27
@@ -93,12 +92,13 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS CONTRIBUTING ChangeLog
+%doc AUTHORS CONTRIBUTING NEWS
 %attr(755,root,root) %{_bindir}/nm-applet
 %attr(755,root,root) %{_bindir}/nm-connection-editor
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/metainfo/nm-connection-editor.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
