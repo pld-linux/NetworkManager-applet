@@ -52,6 +52,7 @@ Requires:	polkit-gnome
 Suggests:	dbus(org.freedesktop.Notifications)
 Obsoletes:	NetworkManager-applet-devel < 0.7.0
 Obsoletes:	gnome-bluetooth-plugin-nma < 1.2.2
+Conflicts:	libnma-data < 1.10.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -98,6 +99,7 @@ fi
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %dir %{_datadir}/gnome-vpn-properties
 %{_datadir}/metainfo/nm-connection-editor.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
 %{_sysconfdir}/xdg/autostart/nm-applet.desktop
 %{_desktopdir}/nm-applet.desktop
 %{_desktopdir}/nm-connection-editor.desktop
