@@ -7,7 +7,7 @@ Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
 Version:	1.32.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/network-manager-applet/1.32/network-manager-applet-%{version}.tar.xz
@@ -75,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 
 %ninja_install -C build
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %find_lang %{name} --with-gnome --all-name
 
