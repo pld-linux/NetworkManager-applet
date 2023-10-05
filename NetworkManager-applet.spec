@@ -1,22 +1,20 @@
 #
 # Conditional build:
-%bcond_without	appindicator	# without application indicators
+%bcond_without	appindicator	# application indicators
 #
-%define		nmversion 2:1.8
+%define		nm_ver	2:1.8
 Summary:	Network Manager for GNOME
 Summary(pl.UTF-8):	Zarządca sieci dla GNOME
 Name:		NetworkManager-applet
-Version:	1.32.0
-Release:	2
+Version:	1.34.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/network-manager-applet/1.32/network-manager-applet-%{version}.tar.xz
-# Source0-md5:	ba0de3589b2975a181a21a74bcb62447
+Source0:	https://download.gnome.org/sources/network-manager-applet/1.34/network-manager-applet-%{version}.tar.xz
+# Source0-md5:	83ff059aff3a691766d5f0079209e5af
 URL:		https://wiki.gnome.org/Projects/NetworkManager
 BuildRequires:	ModemManager-devel >= 1.0.0
-BuildRequires:	NetworkManager-devel >= %{nmversion}
-BuildRequires:	dbus-devel >= 1.2.6
-BuildRequires:	dbus-glib-devel >= 0.74
+BuildRequires:	NetworkManager-devel >= %{nm_ver}
 BuildRequires:	gcr-devel >= 3.14
 BuildRequires:	gcr-ui-devel >= 3.14
 BuildRequires:	gettext-tools >= 0.19.8
@@ -35,13 +33,10 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
 Requires(post,postun):	glib2 >= 1:2.40
 Requires(post,postun):	gtk-update-icon-cache
-Requires:	NetworkManager >= %{nmversion}
-Requires:	dbus >= 1.2.6
-Requires:	dbus-glib >= 0.74
+Requires:	NetworkManager >= %{nm_ver}
 Requires:	glib2 >= 1:2.40
 Requires:	hicolor-icon-theme
 Requires:	jansson >= 2.7
