@@ -34,6 +34,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.40
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	NetworkManager >= %{nm_ver}
@@ -81,12 +82,14 @@ rm -rf $RPM_BUILD_ROOT
 %post
 %update_icon_cache hicolor
 %glib_compile_schemas
+%update_desktop_database_post
 
 %postun
 %update_icon_cache hicolor
 if [ "$1" = "0" ]; then
 	%glib_compile_schemas
 fi
+%update_desktop_database_postun
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
