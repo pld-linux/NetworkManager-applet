@@ -61,16 +61,16 @@ Aplet zarządcy sieci dla GNOME.
 %setup -q -n network-manager-applet-%{version}
 
 %build
-%meson build \
+%meson \
 	-Dappindicator=%{?with_appindicator:ayatana}%{!?with_appindicator:no}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/gnome-vpn-properties
 
-%ninja_install -C build
+%meson_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
